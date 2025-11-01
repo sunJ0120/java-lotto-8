@@ -2,10 +2,10 @@ package lotto.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import lotto.Lotto;
 
-public class Lottos {
+public class Lottos implements Iterable<Lotto> {
     private final List<Lotto> lottos;
 
     private Lottos(List<Lotto> lottos) {
@@ -27,5 +27,10 @@ public class Lottos {
 
     public int size() {
         return lottos.size();
+    }
+
+    @Override
+    public Iterator<Lotto> iterator() {
+        return lottos.iterator();
     }
 }
