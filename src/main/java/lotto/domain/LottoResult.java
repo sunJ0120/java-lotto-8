@@ -2,7 +2,6 @@ package lotto.domain;
 
 import java.util.Map;
 import java.util.stream.Collectors;
-import lotto.Lotto;
 
 public class LottoResult {
     private final Lotto winnigLotto;
@@ -13,9 +12,10 @@ public class LottoResult {
         this.bonusNumber = bonusNumber;
     }
 
-    public Rank calculateRank(Lotto other) {
+    private Rank calculateRank(Lotto other) {
         int matchLottoCount = winnigLotto.countMatches(other);
         boolean hasBonusNumber = other.contains(bonusNumber);
+
         return Rank.valueOf(matchLottoCount, hasBonusNumber);
     }
 
@@ -28,7 +28,7 @@ public class LottoResult {
                 ));
     }
 
-    public long calculateTotalPrize(Lottos lottos) {
+    private long calculateTotalPrize(Lottos lottos) {
         return lottos.getLottos().stream()
                 .map(this::calculateRank)
                 .mapToLong(Rank::getPrize)
@@ -38,7 +38,7 @@ public class LottoResult {
     public Double calculateRate(Lottos lottos) {
         long totalPrize = calculateTotalPrize(lottos);
         int totalCost = 1000 * lottos.size();
-        Double rate = (double) (totalCost / totalPrize) * 100;
+        double rate = ((double) totalPrize / totalCost) * 100;
         return Math.round(rate * 10) / 10.0;
     }
 }
