@@ -3,11 +3,11 @@ package lotto.domain;
 import java.util.Arrays;
 
 public enum Rank {
-    FIRST(6, false, 2000000000),
-    SECOND(5, true, 30000000),
-    THIRD(5, false, 1500000),
-    FOURTH(4, false, 50000),
-    FIFTH(3, false, 5000),
+    FIFTH(3, false, 5_000),
+    FOURTH(4, false, 50_000),
+    THIRD(5, false, 1_500_000),
+    SECOND(5, true, 30_000_000),
+    FIRST(6, false, 2_000_000_000),
     NONE(0, false, 0);
 
     private final int matchLottoCount;
@@ -21,11 +21,24 @@ public enum Rank {
     }
 
     public static Rank valueOf(int matchLottoCount, boolean bonusMatch) {
+        if (matchLottoCount == 5 && bonusMatch) {
+            return SECOND;
+        }
         return Arrays.stream(values())
                 .filter(rank -> rank.matchLottoCount == matchLottoCount)
-                .filter(rank -> rank.bonusMatch == bonusMatch)
+                .filter(rank -> !rank.bonusMatch)
                 .findFirst()
                 .orElse(Rank.NONE);
+    }
+
+    public String getMessage() {
+        if (this == NONE) {
+            return "";
+        }
+        if (this == SECOND) {
+            return String.format("%d개 일치, 보너스 볼 일치 (%,d원)", matchLottoCount, prize);
+        }
+        return String.format("%d개 일치 (%,d원)", matchLottoCount, prize);
     }
 
     public long getPrize() {
