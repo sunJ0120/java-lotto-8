@@ -7,7 +7,7 @@ public class Lotto {
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+        this.numbers = sort(numbers);
     }
 
     private void validate(List<Integer> numbers) {
@@ -16,5 +16,19 @@ public class Lotto {
         }
     }
 
-    // TODO: 추가 기능 구현
+    private List<Integer> sort(List<Integer> numbers) {
+        return numbers.stream()
+                .sorted()
+                .toList();
+    }
+
+    public int countMatches(Lotto other) {
+        return (int) this.numbers.stream()
+                .filter(other.numbers::contains)
+                .count();
+    }
+
+    public boolean contains(int number) {
+        return this.numbers.contains(number);
+    }
 }
