@@ -8,7 +8,7 @@ import java.util.List;
 public class Lottos implements Iterable<Lotto> {
     private final List<Lotto> lottos;
 
-    private Lottos(List<Lotto> lottos) {
+    Lottos(List<Lotto> lottos) {
         this.lottos = lottos;
     }
 
