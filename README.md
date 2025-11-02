@@ -32,31 +32,31 @@
 
 ## 🔎 테스트 목록
 
-### Lotto
+### LottoTest
 
 - [x] 예외 검증
 - [x] countMatches로 매칭 번호 갯수 잘 가져오는지 검증
 - [x] contains으로 번호 포함 여부 잘 판단하는지 검증
 - [x] 생성자에서 오름차순 정렬 잘 되는지 검증
 
-### Lottos
+### LottosTest
 
 - [x] generate() 메서드 동작 검증
 - [x] iterator 순회 검증
 - [x] getLottos로 불변 객체 반환 되는지 검증
 
-### Rank
+### RankTest
 
 - [x] 등수 처리 로직 검증
 - [x] 2등일때 제외 등수 계산 시 보너스 번호 무시하는지 검증
 - [x] 등수별 메세지 검증
 
-### WinningNumber
+### WinningNumberTest
 
 - [x] 예외 검증
 - [x] 순위 계산 로직 검증
 
-### LottoResult
+### LottoResultTest
 
 - [x] 통계 로직 검증
 - [x] 수익률 로직 검증
@@ -76,16 +76,15 @@
 - [x] 보너스 번호 범위 예외 처리
 - [x] 보너스 번호 중복 예외 처리
 
+### PurchaseAmount
+
+- [x] 숫자 아니면 예외 처리
+- [x] 1,000원 단위 아니면 예외 처리
+
 ### inputView
 
-- [ ] 구매 금액 예외 처리
+- [x] 보너스 번호가 숫자 아니면 예외 처리
 
 ### inputParser
 
-- [ ] 숫자 아니면 예외 처리
-
-## 추가 고려
-
-### inputView
-
-- [ ] 구매 금액 범위 고려
+- [x] 분리된 로또에서 숫자 아니면 예외 처리
