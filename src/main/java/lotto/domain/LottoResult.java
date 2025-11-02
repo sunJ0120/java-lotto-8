@@ -4,19 +4,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LottoResult {
-    private final Lotto winningLotto;
-    private final int bonusNumber;
+    private final WinningNumbers winningNumbers;
 
-    public LottoResult(Lotto winningLotto, int bonusNumber) {
-        this.winningLotto = winningLotto;
-        this.bonusNumber = bonusNumber;
+    public LottoResult(WinningNumbers winningNumbers) {
+        this.winningNumbers = winningNumbers;
     }
 
     private Rank calculateRank(Lotto other) {
-        int matchLottoCount = winningLotto.countMatches(other);
-        boolean hasBonusNumber = other.contains(bonusNumber);
-
-        return Rank.valueOf(matchLottoCount, hasBonusNumber);
+        return winningNumbers.calculateRank(other);
     }
 
     public Map<Rank, Long> calculateStatistics(Lottos lottos) {
