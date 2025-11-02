@@ -46,7 +46,6 @@ public class LottoController {
         System.out.println();
 
         Lottos lottos = lottoService.purchaseLottos(purchaseAmount);
-        outputView.printPurchaseCount(lottos);
         outputView.printLottos(lottos);
         System.out.println();
 
