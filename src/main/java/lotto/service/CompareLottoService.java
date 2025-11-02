@@ -4,6 +4,7 @@ import java.util.List;
 import lotto.domain.Lotto;
 import lotto.domain.LottoResult;
 import lotto.domain.Lottos;
+import lotto.domain.WinningNumbers;
 import lotto.util.InputParser;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -20,15 +21,16 @@ public class CompareLottoService {
     }
 
     public void compareAndPrintResult(Lottos lottos) {
-        String winningNumber = inputView.readWinningNumbers();
-        List<Integer> winningNumbers = inputParser.parseWinningNumbers(winningNumber);
+        String winningNumberInput = inputView.readWinningNumbers();
+        List<Integer> parseWinningNumbers = inputParser.parseWinningNumbers(winningNumberInput);
         System.out.println();
 
-        Lotto winningLotto = new Lotto(winningNumbers);
+        Lotto winningLotto = new Lotto(parseWinningNumbers);
         int bonusNumber = inputView.readBonusNumber();
         System.out.println();
 
-        LottoResult lottoResult = new LottoResult(winningLotto, bonusNumber);
+        WinningNumbers winningNumbers = new WinningNumbers(winningLotto, bonusNumber);
+        LottoResult lottoResult = new LottoResult(winningNumbers);
         outputView.printPrizeStatistics(lottoResult, lottos);
         System.out.println();
     }
