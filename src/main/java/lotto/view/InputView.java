@@ -1,5 +1,6 @@
 package lotto.view;
 
+import static lotto.util.LottoConstants.ERROR_EMPTY_INPUT;
 import static lotto.util.LottoConstants.ERROR_NOT_NUMBER;
 
 import camp.nextstep.edu.missionutils.Console;
@@ -38,6 +39,9 @@ public class InputView {
         System.out.println(INPUT_BONUS_NUMBER);
         return retryOnError(() -> {
             String input = Console.readLine();
+            if (input == null || input.trim().isEmpty()) {
+                throw new IllegalArgumentException(ERROR_EMPTY_INPUT);
+            }
             try {
                 return Integer.parseInt(input);
             } catch (NumberFormatException e) {

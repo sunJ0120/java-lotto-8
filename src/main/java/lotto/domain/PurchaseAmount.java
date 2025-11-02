@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import static lotto.util.LottoConstants.ERROR_EMPTY_INPUT;
 import static lotto.util.LottoConstants.ERROR_INVALID_PURCHASE_UNIT;
 import static lotto.util.LottoConstants.ERROR_NOT_NUMBER;
 import static lotto.util.LottoConstants.UNIT;
@@ -18,6 +19,9 @@ public class PurchaseAmount {
     }
 
     private int parseNumber(String number) {
+        if (number == null || number.trim().isEmpty()) {
+            throw new IllegalArgumentException(ERROR_EMPTY_INPUT);
+        }
         try {
             return Integer.parseInt(number);
         } catch (NumberFormatException e) {
