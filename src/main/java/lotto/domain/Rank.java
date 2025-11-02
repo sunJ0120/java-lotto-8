@@ -10,6 +10,8 @@ public enum Rank {
     FIRST(6, false, 2_000_000_000),
     NONE(0, false, 0);
 
+    private static final String FORMAT_MATCH_WITH_BONUS = "%d개 일치, 보너스 볼 일치 (%,d원)";
+    private static final String FORMAT_MATCH_ONLY = "%d개 일치 (%,d원)";
     private final int matchLottoCount;
     private final boolean bonusMatch;
     private final long prize;
@@ -36,9 +38,9 @@ public enum Rank {
             return "";
         }
         if (this == SECOND) {
-            return String.format("%d개 일치, 보너스 볼 일치 (%,d원)", matchLottoCount, prize);
+            return String.format(FORMAT_MATCH_WITH_BONUS, matchLottoCount, prize);
         }
-        return String.format("%d개 일치 (%,d원)", matchLottoCount, prize);
+        return String.format(FORMAT_MATCH_ONLY, matchLottoCount, prize);
     }
 
     public long getPrize() {

@@ -1,5 +1,10 @@
 package lotto.domain;
 
+import static lotto.util.LottoConstants.ERROR_INVALID_SIZE;
+import static lotto.util.LottoConstants.ERROR_NUMBER_OUT_OF_RANGE;
+import static lotto.util.LottoConstants.MAX_LOTTO_NUMBER;
+import static lotto.util.LottoConstants.MIN_LOTTO_NUMBER;
+
 public class WinningNumbers {
     private final Lotto winningLotto;
     private final int bonusNumber;
@@ -12,14 +17,14 @@ public class WinningNumbers {
 
     private static void validateBonusNumberDuplicate(Lotto winningLotto, int bonusNumber) {
         if (winningLotto.contains(bonusNumber)) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
+            throw new IllegalArgumentException(ERROR_INVALID_SIZE);
         }
     }
 
     private static void validateBonusNumberRange(int bonusNumber) {
-        if (1 > bonusNumber || bonusNumber > 45) {
+        if (MIN_LOTTO_NUMBER > bonusNumber || bonusNumber > MAX_LOTTO_NUMBER) {
             throw new IllegalArgumentException(
-                    String.format("[ERROR] 로또 번호는 1 ~ 45까지의 범위만 허용합니다. : %d", bonusNumber)
+                    String.format(ERROR_NUMBER_OUT_OF_RANGE, bonusNumber)
             );
         }
     }

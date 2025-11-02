@@ -6,8 +6,17 @@ import lotto.domain.Lottos;
 import lotto.domain.Rank;
 
 public class OutputView {
+    private static final String FORMAT_PURCHASE_COUNT = "%d개를 구매했습니다.%n";
+    private static final String FORMAT_PRIZE_COUNT = "%s - %d개";
+    private static final String FORMAT_PROFIT_RATE = "총 수익률은 %.1f%%입니다.";
+
+    private static final String MESSAGE_STATISTICS_TITLE = "당첨 통계";
+    private static final String MESSAGE_DIVIDER = "---";
+
+    private static final long DEFAULT_COUNT = 0L;
+
     public void printPurchaseCount(Lottos lottos) {
-        System.out.printf("%d개를 구매하였습니다.%n", lottos.size());
+        System.out.printf(FORMAT_PURCHASE_COUNT, lottos.size());
     }
 
     public void printLottos(Lottos lottos) {
@@ -17,17 +26,17 @@ public class OutputView {
     }
 
     public void printPrizeStatistics(LottoResult lottoResult, Lottos lottos) {
-        System.out.println("당첨 통계");
-        System.out.println("---");
+        System.out.println(MESSAGE_STATISTICS_TITLE);
+        System.out.println(MESSAGE_DIVIDER);
 
         for (Rank rank : Rank.values()) {
             if (rank == Rank.NONE) {
                 continue;
             }
-            long count = lottoResult.calculateStatistics(lottos).getOrDefault(rank, 0L);
-            System.out.println(rank.getMessage() + " - " + count + "개");
+            long count = lottoResult.calculateStatistics(lottos).getOrDefault(rank, DEFAULT_COUNT);
+            System.out.println(String.format(FORMAT_PRIZE_COUNT, rank.getMessage(), count));
         }
 
-        System.out.printf("총 수익률은 %.1f%% 입니다.", lottoResult.calculateRate(lottos));
+        System.out.println(String.format(FORMAT_PROFIT_RATE, lottoResult.calculateRate(lottos)));
     }
 }
