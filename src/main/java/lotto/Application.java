@@ -1,22 +1,20 @@
 package lotto;
 
 import lotto.controller.LottoController;
-import lotto.service.CompareLottoService;
-import lotto.service.PurchaseLottoService;
+import lotto.service.LottoService;
 import lotto.util.InputParser;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
 public class Application {
     public static void main(String[] args) {
-        InputView inputView = new InputView();
         InputParser inputParser = new InputParser();
+        InputView inputView = new InputView(inputParser);
         OutputView outputView = new OutputView();
 
-        PurchaseLottoService purchaseLottoService = new PurchaseLottoService(inputView, outputView);
-        CompareLottoService compareLottoService = new CompareLottoService(inputView, inputParser, outputView);
+        LottoService lottoService = new LottoService();
+        LottoController controller = new LottoController(inputView, lottoService, outputView);
 
-        LottoController controller = new LottoController(purchaseLottoService, compareLottoService);
         controller.run();
     }
 }
