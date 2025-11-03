@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import java.util.List;
+import java.util.function.Supplier;
 import lotto.domain.LottoResult;
 import lotto.domain.Lottos;
 import lotto.domain.WinningNumbers;
@@ -32,13 +33,15 @@ public class LottoController {
     }
 
     private WinningNumbers receiveWinningNumbers() {
-        List<Integer> parseWinningNumbers = inputView.readWinningNumbers();
-        System.out.println();
+        return retryOnError(() -> {
+            List<Integer> parseWinningNumbers = inputView.readWinningNumbers();
+            System.out.println();
 
-        int bonusNumber = inputView.readBonusNumber();
-        System.out.println();
+            int bonusNumber = inputView.readBonusNumber();
+            System.out.println();
 
-        return lottoService.createWinningNumbers(parseWinningNumbers, bonusNumber);
+            return lottoService.createWinningNumbers(parseWinningNumbers, bonusNumber);
+        });
     }
 
     private Lottos purchaseLottos() {
@@ -50,5 +53,14 @@ public class LottoController {
         System.out.println();
 
         return lottos;
+    }
+
+    private <T> T retryOnError(Supplier<T> supplier) {
+        try {
+            return supplier.get();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return retryOnError(supplier);
+        }
     }
 }
